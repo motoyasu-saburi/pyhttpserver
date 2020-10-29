@@ -2,7 +2,7 @@ import socket
 
 
 LOCAL_IP = "127.0.0.1"
-BIND_PORT = 8888
+BIND_PORT = 8080
 
 
 with socket.socket(
@@ -19,7 +19,7 @@ with socket.socket(
     # Connect 成功後、Connectionと Address を取得
     conn, addr = soc.accept()
     with conn:
-      with True:
+      while True:
         # connection からデータを少しずつ受け取る
         data = conn.recv(1024)
         if not data:
