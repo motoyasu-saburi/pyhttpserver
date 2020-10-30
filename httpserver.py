@@ -1,9 +1,7 @@
 import socket
 
-
 LOCAL_IP = "127.0.0.1"
 BIND_PORT = 8080
-
 
 with socket.socket(
     socket.AF_INET, # AF = IPv4
@@ -27,4 +25,8 @@ with socket.socket(
         print('data : {}, addr: {}'.format(data, addr))
         # Client にデータを返す (b -> byte でないといけない）
         conn.sendall(b'Received: ' + data)
+
+
+
+
 
