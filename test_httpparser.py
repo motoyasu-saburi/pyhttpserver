@@ -7,14 +7,16 @@ class MyTestCase1(unittest.TestCase):
 
     # Only use setUp() and tearDown() if necessary
 
-    #def setUp(self):
-    #    ... code to execute in preparation for tests ...
+    def setUp(self):
+        # 初期化処理
+        pass
 
-    #def tearDown(self):
-    #    ... code to execute to clean up after tests ...
+    def tearDown(self):
+        # 終了処理
+        pass
 
     def test_httpParser(self):
-        self.assertEqual(hp.bodyParser(), "hoge")
+        self.assertEqual(hp.bodyParser(" "), " ")
 
 if __name__ == '__main__':
     unittest.main()
