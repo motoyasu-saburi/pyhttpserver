@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import re
 
 class HttpParser():
   def __init__(self):  # インスタンス生成時に自動的に呼ばれるメソッド
@@ -7,12 +8,23 @@ class HttpParser():
   def parse(self, httpStr):
     return httpStr
 
-  def pathParser(self, headerStr):
+  def parseUrlPath(self, headerStr):
     return headerStr
 
-  def contentLengthParser(self, headerStr):
+  def parseContentLength(self, headerStr):
     return headerStr
 
-  def bodyParser(self, httpStr):
+  def devideHeaderBody(self, httpStr):
+    MAX_SPLIT = 1
+    # TODO Classにしたい。あとHeaderはのちのち（か、このメソッドで）分離させたい
+    bodyAndHeader = re.split(r'\n\n', httpStr, MAX_SPLIT)
+    header = bodyAndHeader[0]
+    body = bodyAndHeader[1]
+    return bodyAndHeader
+
+  def parseHttpHeader(self, httpStr):
+    return httpStr
+
+  def parseHttpBody(self, httpStr):
     return httpStr
 

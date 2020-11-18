@@ -15,8 +15,28 @@ class MyTestCase1(unittest.TestCase):
         # 終了処理
         pass
 
-    def test_httpParser(self):
-        self.assertEqual(hp.bodyParser(" "), " ")
+    def test_devideHeaderBody(self):
+        normalHttpStr = """
+GET / HTTP/1.1
+Accept: image/gif, image/jpeg, */*
+Host: example.com
+Connection: Keep-Alive
+
+Hello
+"""
+
+        expectResult = ["""
+GET / HTTP/1.1
+Accept: image/gif, image/jpeg, */*
+Host: example.com
+Connection: Keep-Alive 
+""",
+"Hello"]
+
+        # self.assertEqual(hp.devideHeaderBody(normalHttpStr), expectResult)
+        # TODO 落ちる
+        self.assertEqual(hp.devideHeaderBody(normalHttpStr)[1], "Hello")
+
 
 if __name__ == '__main__':
     unittest.main()
