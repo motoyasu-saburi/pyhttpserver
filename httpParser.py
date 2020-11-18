@@ -18,9 +18,8 @@ class HttpParser():
     MAX_SPLIT = 1
     # TODO Classにしたい。あとHeaderはのちのち（か、このメソッドで）分離させたい
     bodyAndHeader = re.split(r'\n\n', httpStr, MAX_SPLIT)
-    header = bodyAndHeader[0]
-    body = bodyAndHeader[1]
-    return bodyAndHeader
+    strippedBodyAndHeader = [s.strip() for s in bodyAndHeader]
+    return strippedBodyAndHeader
 
   def parseHttpHeader(self, httpStr):
     return httpStr

@@ -22,20 +22,14 @@ Accept: image/gif, image/jpeg, */*
 Host: example.com
 Connection: Keep-Alive
 
-Hello
-"""
+Hello"""
 
-        expectResult = ["""
-GET / HTTP/1.1
+        expectResult = ["""GET / HTTP/1.1
 Accept: image/gif, image/jpeg, */*
 Host: example.com
-Connection: Keep-Alive 
-""",
+Connection: Keep-Alive""",
 "Hello"]
-
-        # self.assertEqual(hp.devideHeaderBody(normalHttpStr), expectResult)
-        # TODO 落ちる
-        self.assertEqual(hp.devideHeaderBody(normalHttpStr)[1], "Hello")
+        self.assertEqual(hp.devideHeaderBody(normalHttpStr), expectResult)
 
 
 if __name__ == '__main__':
