@@ -1,23 +1,33 @@
 # -*- coding: utf-8 -*-
 import re
+from typing import *
 
 class HttpParser():
-  def __init__(self):  # インスタンス生成時に自動的に呼ばれるメソッド
+  def __init__(self) -> None :  # インスタンス生成時に自動的に呼ばれるメソッド
     pass
 
   def parse(self, httpStr):
     return httpStr
 
-  def parseUrlPath(self, headerStr):
-    return headerStr
+  def parseUrlPath(self, headerStr: str) -> str:
+    try:
+      #s = re.match("\s.+\s(?=HTTP/.+)", headerStr) # [1].strip()
+      s = re.match("HTTP", headerStr) # [1].strip()
+      print ("-------------")
+      print(s)
+      print ("-------------")
+      return
+    except:
+      return ""
 
   def parseContentLength(self, headerStr):
     return headerStr
 
-  def devideHeaderBody(self, httpStr):
+  # TODO list[str] を 専用のデータクラスにしたい
+  def devideHeaderBody(self, httpStr: str) -> List[str]:
     MAX_SPLIT = 1
     # TODO Classにしたい。あとHeaderはのちのち（か、このメソッドで）分離させたい
-    bodyAndHeader = re.split(r'\n\n', httpStr, MAX_SPLIT)
+    bodyAndHeader: List[str] = re.split(r'\n\n', httpStr, MAX_SPLIT)
     strippedBodyAndHeader = [s.strip() for s in bodyAndHeader]
     return strippedBodyAndHeader
 

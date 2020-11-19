@@ -31,6 +31,13 @@ Connection: Keep-Alive""",
 "Hello"]
         self.assertEqual(hp.devideHeaderBody(normalHttpStr), expectResult)
 
+    def test_parseUrlPath(self):
+        # TODO 落ちる
+        normalHttpStr = """GET / HTTP/1.1
+Accept: image/gif, image/jpeg, */*
+Host: example.com
+Connection: Keep-Alive"""
+        self.assertEqual(hp.parseUrlPath(normalHttpStr), "/")
 
 if __name__ == '__main__':
     unittest.main()
