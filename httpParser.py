@@ -10,15 +10,7 @@ class HttpParser():
     return httpStr
 
   def parseUrlPath(self, headerStr: str) -> str:
-    try:
-      #s = re.match("\s.+\s(?=HTTP/.+)", headerStr) # [1].strip()
-      s = re.match("HTTP", headerStr) # [1].strip()
-      print ("-------------")
-      print(s)
-      print ("-------------")
-      return
-    except:
-      return ""
+      return re.search("\s.+\s(?=HTTP/.+)", headerStr).group().strip()
 
   def parseContentLength(self, headerStr):
     return headerStr
