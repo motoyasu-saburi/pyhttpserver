@@ -25,13 +25,12 @@ class HttpParser():
     strippedBodyAndHeader = [s.strip() for s in bodyAndHeader]
     return strippedBodyAndHeader
 
-  def parseHttpHeader(self, httpStr: str) -> List[str]:
+  def parseHttpHeader(self, httpStr: str) -> Dict[str, str]:
     MAX_SPLIT = 1 # HTTP は Key : Value 形式のため、初回のみ
-    httpHeaderLines = httpStr.split("\n")
-    # TODO ここで落ちるので直す
-    v: dict[str, str] = dict(line.split(":", MAX_SPLIT) for line in httpHeaderLines)
-    print(v)
-    return v
+    httpHeaderLines: List[str] = httpStr.split("\n")[1:] # 最初の行は "GET / HTTP/1.1" なので無視
+    httpLinesArr: List[List[str]] = [line.strip().split(":", MAX_SPLIT) for line in httpHeaderLines]
+    httpLinesDict = {k: v for (k, v) in httpLinesArr}
+    return httpLinesDict
 
   def parseHttpBody(self, httpStr):
     return httpStr
