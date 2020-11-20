@@ -44,5 +44,14 @@ Connection: Keep-Alive""",
         Connection: Keep-Alive"""
         self.assertEqual(hp.parseUrlPath(normalHttpStr2), "/GET/HTTP/AAA")
 
+    def test_parseHttpHeader(self):
+        # TODO
+        normalHttpStr2 = """GET /GET/HTTP/AAA HTTP/1.1
+        Accept: image/gif, image/jpeg, */*
+        Host: example.com
+        Connection: Keep-Alive"""
+        self.assertEqual(hp.parseHttpHeader(normalHttpStr2), "")
+
+
 if __name__ == '__main__':
     unittest.main()

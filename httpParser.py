@@ -7,12 +7,14 @@ class HttpParser():
     pass
 
   def parse(self, httpStr):
+    pass
     return httpStr
 
   def parseUrlPath(self, headerStr: str) -> str:
       return re.search("\s.+\s(?=HTTP/.+)", headerStr).group().strip()
 
   def parseContentLength(self, headerStr):
+    pass
     return headerStr
 
   # TODO list[str] を 専用のデータクラスにしたい
@@ -23,8 +25,13 @@ class HttpParser():
     strippedBodyAndHeader = [s.strip() for s in bodyAndHeader]
     return strippedBodyAndHeader
 
-  def parseHttpHeader(self, httpStr):
-    return httpStr
+  def parseHttpHeader(self, httpStr: str) -> List[str]:
+    MAX_SPLIT = 1 # HTTP は Key : Value 形式のため、初回のみ
+    httpHeaderLines = httpStr.split("\n")
+    # TODO ここで落ちるので直す
+    v: dict[str, str] = dict(line.split(":", MAX_SPLIT) for line in httpHeaderLines)
+    print(v)
+    return v
 
   def parseHttpBody(self, httpStr):
     return httpStr
