@@ -13,9 +13,11 @@ class HttpParser():
   def parseUrlPath(self, headerStr: str) -> str:
       return re.search("\s.+\s(?=HTTP/.+)", headerStr).group().strip()
 
-  def parseContentLength(self, headerStr):
-    pass
-    return headerStr
+  def parseContentLength(self, httpHeaders: Dict[str, str]) -> Optional[int]:
+    for headerKey, headerValue in httpHeaders.items():
+      if re.match('^Content-Length$', headerKey):
+        return int(headerValue)
+    return None
 
   # TODO list[str] を 専用のデータクラスにしたい
   def devideHeaderBody(self, httpStr: str) -> List[str]:

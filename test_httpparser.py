@@ -55,5 +55,19 @@ Connection: Keep-Alive""",
             'Host': ' example.com'}
         self.assertEqual(hp.parseHttpHeader(normalHttpStr), expectDict)
 
+    def test_parseContentLength(self):
+        normalHttpStr = {'Accept': ' image/gif, image/jpeg, */*',
+                      'Connection': ' Keep-Alive',
+                     'Content-Length': '30',
+                      'Host': ' example.com'}
+        self.assertEqual(hp.parseContentLength(normalHttpStr), 30)
+
+        noneContentLengthHttpStr = {'Accept': ' image/gif, image/jpeg, */*',
+                         'Connection': ' Keep-Alive',
+                         'Host': ' example.com'}
+        self.assertEqual(hp.parseContentLength(noneContentLengthHttpStr), None)
+
+
+
 if __name__ == '__main__':
     unittest.main()
