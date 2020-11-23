@@ -19,6 +19,13 @@ class HttpParser():
         return int(headerValue)
     return None
 
+  def parseMethod(self, headerStr: str) -> str:
+    firstLineHeader = headerStr.split("\n")[0].strip()
+    method: Optional[Match[str]] = re.search("^(GET|HEAD|POST|PUT|DELETE|CONNECT|OPTIONS|TRACE|PATCH)", firstLineHeader)
+    if method != None:
+      return method.group().strip()
+    return None
+
   def parseContentType(self, httpHeaders: Dict[str, str]) -> Optional[str]:
     for headerKey, headerValue in httpHeaders.items():
       if re.match('^Content-Type$', headerKey):
@@ -41,6 +48,5 @@ class HttpParser():
     return httpLinesDict
 
   def parseHttpBody(self, httpStr):
-
     return httpStr
 

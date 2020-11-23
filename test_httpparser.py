@@ -86,6 +86,19 @@ Connection: Keep-Alive""",
                          'Host': ' example.com'}
         self.assertEqual(hp.parseContentLength(noneContentLengthHttps), None)
 
+    def test_parseMethod(self):
+        normalHttpStr = """GET /GET/HTTP/AAA HTTP/1.1
+                Accept: image/gif, image/jpeg, */*
+                Host: example.com
+                Connection: Keep-Alive"""
+        self.assertEqual(hp.parseMethod(normalHttpStr), "GET")
+
+        abnormalMethodHttpStr = """GED /GET/HTTP/AAA HTTP/1.1
+                Accept: image/gif, image/jpeg, */*
+                Host: example.com
+                Connection: Keep-Alive"""
+        self.assertEqual(hp.parseMethod(abnormalMethodHttpStr), None)
+
 
 
 if __name__ == '__main__':
