@@ -19,6 +19,12 @@ class HttpParser():
         return int(headerValue)
     return None
 
+  def parseContentType(self, httpHeaders: Dict[str, str]) -> Optional[str]:
+    for headerKey, headerValue in httpHeaders.items():
+      if re.match('^Content-Type$', headerKey):
+        return re.search('[\w\/]+', headerValue).group().strip()
+    return None
+
   # TODO list[str] を 専用のデータクラスにしたい
   def devideHeaderBody(self, httpStr: str) -> List[str]:
     MAX_SPLIT = 1
@@ -35,5 +41,6 @@ class HttpParser():
     return httpLinesDict
 
   def parseHttpBody(self, httpStr):
+
     return httpStr
 

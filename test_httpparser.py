@@ -55,17 +55,36 @@ Connection: Keep-Alive""",
             'Host': ' example.com'}
         self.assertEqual(hp.parseHttpHeader(normalHttpStr), expectDict)
 
+    def test_parseContentType(self):
+        normalHttps = {'Accept': ' image/gif, image/jpeg, */*',
+                         'Connection': ' Keep-Alive',
+                         'Content-Type': 'text/html',
+                         'Content-Length': '30',
+                         'Host': ' example.com'}
+        self.assertEqual(hp.parseContentType(normalHttps), 'text/html')
+
+        normalHttps2 = {'Accept': ' image/gif, image/jpeg, */*',
+                          'Connection': ' Keep-Alive',
+                          'Content-Type': 'text/html; charset=UTF-8',
+                          'Content-Length': '30',
+                          'Host': ' example.com'}
+        self.assertEqual(hp.parseContentType(normalHttps2), 'text/html')
+
+        noneContentType = {'Accept': ' image/gif, image/jpeg, */*',
+                        'Host': ' example.com'}
+        self.assertEqual(hp.parseContentType(noneContentType), None)
+
     def test_parseContentLength(self):
-        normalHttpStr = {'Accept': ' image/gif, image/jpeg, */*',
+        normalHttps = {'Accept': ' image/gif, image/jpeg, */*',
                       'Connection': ' Keep-Alive',
                      'Content-Length': '30',
                       'Host': ' example.com'}
-        self.assertEqual(hp.parseContentLength(normalHttpStr), 30)
+        self.assertEqual(hp.parseContentLength(normalHttps), 30)
 
-        noneContentLengthHttpStr = {'Accept': ' image/gif, image/jpeg, */*',
+        noneContentLengthHttps = {'Accept': ' image/gif, image/jpeg, */*',
                          'Connection': ' Keep-Alive',
                          'Host': ' example.com'}
-        self.assertEqual(hp.parseContentLength(noneContentLengthHttpStr), None)
+        self.assertEqual(hp.parseContentLength(noneContentLengthHttps), None)
 
 
 
