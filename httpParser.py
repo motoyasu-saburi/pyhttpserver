@@ -7,8 +7,16 @@ class HttpParser():
     pass
 
   def parse(self, httpStr):
-    pass
-    return httpStr
+    dividedHttp = self.devideHeaderBody(httpStr)
+    httpHeader = dividedHttp[0]
+    httpBody = dividedHttp[1]
+    urlPath = self.parseUrlPath(httpHeader)
+    method = self.parseMethod(httpHeader)
+    splittedHeaders = self.parseHttpHeader(httpHeader)
+    contentLength = self.parseContentLength(splittedHeaders)
+    contentType = self.parseContentType(splittedHeaders)
+    # TODO パースした結果をクラスにして返す所作る
+    return True
 
   def parseUrlPath(self, headerStr: str) -> str:
       return re.search("\s.+\s(?=HTTP/.+)", headerStr).group().strip()

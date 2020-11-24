@@ -99,6 +99,16 @@ Connection: Keep-Alive""",
                 Connection: Keep-Alive"""
         self.assertEqual(hp.parseMethod(abnormalMethodHttpStr), None)
 
+    def test_parse(self):
+        normalHttpStr = """
+        GET / HTTP/1.1
+        Accept: image/gif, image/jpeg, */*
+        Host: example.com
+        Connection: Keep-Alive
+
+        Hello"""
+        self.assertEqual(hp.parse(normalHttpStr), True)
+
 
 
 if __name__ == '__main__':
