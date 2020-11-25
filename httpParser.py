@@ -55,6 +55,3 @@ class HttpParser():
     httpLinesDict = {k: v for (k, v) in httpLinesArr}
     return httpLinesDict
 
-  def parseHttpBody(self, httpStr):
-    return httpStr
-
