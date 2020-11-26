@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 import re
 from typing import *
+import HttpRequest
 
 class HttpParser():
   def __init__(self) -> None :  # インスタンス生成時に自動的に呼ばれるメソッド
     pass
 
-  def parse(self, httpStr):
+  def parse(self, httpStr) -> HttpRequest:
     dividedHttp = self.devideHeaderBody(httpStr)
     httpHeader = dividedHttp[0]
     httpBody = dividedHttp[1]
@@ -15,8 +16,8 @@ class HttpParser():
     splittedHeaders = self.parseHttpHeader(httpHeader)
     contentLength = self.parseContentLength(splittedHeaders)
     contentType = self.parseContentType(splittedHeaders)
-    # TODO パースした結果をクラスにして返す所作る
-    return True
+    req = HttpRequest.HttpRequest(httpHeader, httpBody, urlPath, method, splittedHeaders, contentLength, contentType)
+    return req
 
   def parseUrlPath(self, headerStr: str) -> str:
       return re.search("\s.+\s(?=HTTP/.+)", headerStr).group().strip()

@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-from typing import Optional
+from typing import Optional, Dict
 
 
-class MttpRequest:
+class HttpRequest:
     httpHeader: str
     httpBody: str
     urlPath: str
     method: str # TODO enum 的にしたい
-    splittedHeaders: dict[str, str]
+    splittedHeaders: Dict[str, str]
     contentLength: Optional[str]
     contentType: Optional[str]
 

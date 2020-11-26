@@ -1,4 +1,6 @@
 import unittest
+
+from HttpRequest import HttpRequest
 from httpparser import HttpParser
 
 hp = HttpParser()
@@ -100,16 +102,34 @@ Connection: Keep-Alive""",
         self.assertEqual(hp.parseMethod(abnormalMethodHttpStr), None)
 
     def test_parse(self):
-        normalHttpStr = """
-        GET / HTTP/1.1
+        normalHttpStr = """GET / HTTP/1.1
         Accept: image/gif, image/jpeg, */*
         Host: example.com
         Connection: Keep-Alive
 
         Hello"""
-        self.assertEqual(hp.parse(normalHttpStr), True)
 
 
+        # TODO 落ちるテストの修正
+        expectedHeader = """GET / HTTP/1.1
+        Accept: image/gif, image/jpeg, */*
+        Host: example.com
+        Connection: Keep-Alive"""
+        expectBody = "Hello"
+        expectUrlPath = "/"
+        expectSplittedHeader = {
+            "Accept": "image/gif, image/jpeg, */*",
+            "Host": "example.com",
+            "Connection": "Keep-Alive"
+        }
+        expectMethod = "GET"
+        expectContentLength = None
+        expectContentType = None
+
+
+        expectData = HttpRequest(expectedHeader, expectBody, expectUrlPath, expectMethod, expectSplittedHeader, expectContentLength, expectContentType)
+
+        self.assertEqual(hp.parse(normalHttpStr), expectData)
 
 if __name__ == '__main__':
     unittest.main()
